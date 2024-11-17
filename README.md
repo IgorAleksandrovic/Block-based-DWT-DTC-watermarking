@@ -112,7 +112,22 @@ Key parameters that affect watermark behavior:
 - `block_size`: Size of DCT blocks (8x8)
 
 ### TODO
-- Further optimise the parameter for a better balance between robustnes and visibility
+- Further optimise the parameters for a better balance between robustnes and visibility
 - Experiment with a single band (HH?) embedding for greater sensitivity to modification.
+- Implement a more sophisticated perceptual mask (Variations inside DCT blocks)
+- Use multiple arrays to capture the whole middle frequency DCT zone
+
+### REFERENCES
+
+- Alomoush, Khashan, Alrosan, Attar et al. Digital image watermarking using discrete cosine transformation based linear modulation. 
+  - Journal of Cloud Computing 12, 96 (2023).
+- Xin Li, Xingjun Wang, Anqi Chen, Linghao Xiao et al. A Simplified and Robust DCT-based Watermarking Algorithm 
+  - International Journal of Electronics and Communications, March 2017
+- Ali Al-Haj. Combined DWT-DCT digital image watermarking. 
+  - Journal of Computer Science 3(9)(9), September 2007
+- Verma, A. Image-Watermarking-using-DCT. 
+  - GitHub repository (2020). [Link](https://github.com/arooshiverma/Image-Watermarking-using-DCT)
+- Jadavpur University, DWT-DCT-Digital-Image-Watermarking. 
+  - GitHub repository (2021). [Link](https://github.com/diptamath/DWT-DCT-Digital-Image-Watermarking)
 
 
