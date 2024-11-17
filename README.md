@@ -2,6 +2,9 @@
 
 A robust digital image watermarking tool that embeds and verifies invisible watermarks using a combination of Discrete Wavelet Transform (DWT) and Discrete Cosine Transform (DCT). The tool adapts watermark strength based on image characteristics to maintain image quality while keeping watermark durability. The block based embedding and verification enables to see which part of the image was modified.
 
+This tool should be viewed as a test project demonstrating the potential use of watermarking to protect against tampering and keep attribution to the original publisher of the image.
+The standard image transformations (resizing and compression) that the imnage suffers trough social media and other media sharing pipelines should not erase the signature, making it suitable for online use.
+
 ## Features
 
 - Invisible watermarking that preserves image quality
@@ -107,4 +110,9 @@ Key parameters that affect watermark behavior:
 - `threshold`: Correlation threshold for verification (default: 0.3)
 - `grid_size`: Number of blocks per dimension (4x4 grid)
 - `block_size`: Size of DCT blocks (8x8)
+
+### TODO
+- Further optimise the parameter for a better balance between robustnes and visibility
+- Experiment with a single band (HH?) embedding for greater sensitivity to modification.
+
 
