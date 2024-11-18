@@ -111,13 +111,13 @@ Key parameters that affect watermark behavior:
 - `grid_size`: Number of blocks per dimension (4x4 grid)
 - `block_size`: Size of DCT blocks (8x8)
 
-### TODO
+## TODO
 - Further optimise the parameters for a better balance between robustnes and visibility
 - Experiment with a single band (HH?) embedding for greater sensitivity to modification.
 - Implement a more sophisticated perceptual mask (Variations inside DCT blocks)
 - Use multiple arrays to capture the whole middle frequency DCT zone
 
-### REFERENCES
+## REFERENCES
 
 - Alomoush, Khashan, Alrosan, Attar et al. Digital image watermarking using discrete cosine transformation based linear modulation. 
   - Journal of Cloud Computing 12, 96 (2023).
