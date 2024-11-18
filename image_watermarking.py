@@ -19,8 +19,8 @@ class WatermarkBase:
         
         # Processing parameters
         self.max_dimension = 2048  # Maximum image dimension
-        self.strength = 3          # Watermark embedding strength (Find a sweet spot between visibility and robustness)
-        self.threshold = 0.3       # Correlation threshold for verification (Lower value is more robust but less sensitive)
+        self.strength = 2.5          # Watermark embedding strength (Find a sweet spot between visibility and robustness)
+        self.threshold = 0.4       # Correlation threshold for verification (Lower value is more robust but less sensitive)
                                    # If you change treshold, dajust display in ImgSignBlock
                                     
         # Luminance weights for adaptive watermark aplication
@@ -34,7 +34,7 @@ class WatermarkBase:
         
         # Sub-band weights (Horizontal, Vertical, Diagonal)
         # This determines signature strength in each of the DWT bands
-        self.sub_band_weights = (1.0, 1.2, 1.2)
+        self.sub_band_weights = (1.2, 1.2, 1.2)
         
         
     def calculate_luminance_weight(self, mean_luminance):
@@ -153,12 +153,12 @@ class ImageSigner(WatermarkBase):
         for i in range(0, dct_coeffs.shape[0], self.block_size):
             for j in range(0, dct_coeffs.shape[1], self.block_size):
                  # To target (mostly) mid freq in the block
-                mid_freq = dct_coeffs[i+3:i+5, j+3:j+5]
+                mid_freq = dct_coeffs[i+3:i+6, j+3:j+6]
                 mid_energy = np.sqrt(np.mean(mid_freq**2))
                 if mid_energy > 0:
-                    dct_coeffs[i+3:i+5, j+3:j+5] += (
+                    dct_coeffs[i+3:i+6, j+3:j+6] += (
                         mid_energy * self.strength * 
-                        watermark[i+3:i+5, j+3:j+5] * perceptual_mask
+                        watermark[i+3:i+6, j+3:j+6] * perceptual_mask
                     )
         
         idct_coeffs = np.zeros_like(dct_coeffs) #Pack it back up with inverse transform
@@ -261,8 +261,8 @@ class ImageVerifier(WatermarkBase):
             for j in range(0, dct_coeffs.shape[1], self.block_size):
                 # Only check mid frequencies
                 mid_corr = np.corrcoef(
-                    dct_coeffs[i+3:i+5, j+3:j+5].flatten(),
-                    watermark[i+3:i+5, j+3:j+5].flatten()
+                    dct_coeffs[i+3:i+6, j+3:j+6].flatten(),
+                    watermark[i+3:i+6, j+3:j+6].flatten()
                 )[0,1]
                 
                 correlations.append(0 if np.isnan(mid_corr) else mid_corr)
@@ -318,7 +318,7 @@ class ImageVerifier(WatermarkBase):
         # Modify this to fine tune
         if avg_correlation < 0.2:
             status = "UNSIGNED"
-        elif std_correlation > 0.15:
+        elif std_correlation > 0.10:
             status = "MODIFIED"
         else:
             status = "AUTHENTIC"
